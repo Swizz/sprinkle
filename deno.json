@@ -1,0 +1,14 @@
+{
+  "imports": {
+    "lume": "https://deno.land/x/lume@v3.1.4/"
+  },
+  "unstable": [
+    "temporal"
+  ],
+  "lock": false,
+  "compilerOptions": {
+    "types": [
+      "lume/types.ts"
+    ]
+  }
+}
