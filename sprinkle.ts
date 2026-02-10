@@ -1,4 +1,5 @@
-import { sprae } from "sprae"
+import { sprae } from "sprae/sprae.js"
+import { parse } from "sprae/core.js"
 import { stringToDocument, documentToString } from "lume/core/utils/dom.ts"
 import { merge } from "lume/core/utils/object.ts"
 import textLoader from "lume/core/loaders/text.ts"
@@ -45,7 +46,7 @@ export class SprinkleEngine implements Lume.Engine {
 
     // Wait for any pending dom updates to finish
     await new Promise(resolve => {
-      setTimeout(resolve, 2)
+      setTimeout(resolve, 0)
     })
 
     return documentToString(document)
@@ -53,11 +54,11 @@ export class SprinkleEngine implements Lume.Engine {
 
   addHelper(name: string, fn: DirectiveHelper | ModifierHelper, options: HelperOptions) {
     if (options.type == "directive") {
-      // @ts-expect-error sprae use attributes on function
+      // @ts-expect-error sprae.directive is not typed
       this.sprae.directive[name] = fn as DirectiveHelper
     }
     else if (options.type == "modifier" || options.type == "filter") {
-      // @ts-expect-error sprae use attributes on function
+      // @ts-expect-error sprae.modifier is not typed
       this.sprae.modifier[name] = fn as ModifierHelper
     }
   }
@@ -76,7 +77,7 @@ export function sprinkle(userOptions?: Options) {
       userOptions
     )
 
-    // @ts-expect-error sprae use methods on function
+    // @ts-expect-error sprae.use is not typed
     sprae.use(options.options)
 
     // Ignore includes folder
@@ -91,7 +92,7 @@ export function sprinkle(userOptions?: Options) {
     })
 
     site.helper("content", (el, state) => {
-      // @ts-expect-error sprae use attributes on function
+      // @ts-expect-error sprae.directive is not typed
       sprae.directive.html(el, state)(() => state.content)
     }, { type: "directive" })
 
@@ -115,11 +116,18 @@ export function sprinkle(userOptions?: Options) {
         }
       }
 
+      // TODO: Find a better solution in sprae core
+      const scope = ((state: unknown) => {
+         const scope = parse(el.getAttribute(options.options.prefix + 'scope'))(state)
+         el.removeAttribute(options.options.prefix + 'scope')
+         return scope
+      })(state)
+
       if (typeof component == "function") {
-        component = component()
+        component = component(Object.assign(state, { content: el.innerHTML }, typeof scope === 'function' ? scope(state) : scope))
       }
 
-      // @ts-expect-error sprae use attributes on function
+      // @ts-expect-error sprae.directive is not typed
       Promise.resolve(component).then(sprae.directive.html(el, state))
     }, { type: "directive" })
   }
