@@ -1,4 +1,4 @@
-import { sprae } from "sprae/sprae.js"
+import { sprae, store } from "sprae/sprae.js"
 import { parse } from "sprae/core.js"
 import { stringToDocument, documentToString } from "lume/core/utils/dom.ts"
 import { merge } from "lume/core/utils/object.ts"
@@ -42,7 +42,7 @@ export class SprinkleEngine implements Lume.Engine {
     const document = stringToDocument(content)
     if (!document) return content
 
-    await this.sprae(document.body, { ...data, comp: {}, _comp: data.comp })
+    await this.sprae(document.body, store({ ...data, comp: {}}, { _comp: data.comp }))
 
     // Wait for any pending dom updates to finish
     await new Promise(resolve => {
@@ -122,6 +122,7 @@ export function sprinkle(userOptions?: Options) {
       })(state)
 
       if (typeof component == "function") {
+        // FIXME: This is not good as it merge the scope in the global state
         component = component(Object.assign(state, { content: el.innerHTML }, typeof scope === 'function' ? scope(state) : scope))
       }
 
