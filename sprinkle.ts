@@ -42,7 +42,7 @@ export class SprinkleEngine implements Lume.Engine {
     const document = stringToDocument(content)
     if (!document) return content
 
-    await this.sprae(document.body, data)
+    await this.sprae(document.body, { ...data, comp: {}, _comp: data.comp })
 
     // Wait for any pending dom updates to finish
     await new Promise(resolve => {
@@ -97,15 +97,13 @@ export function sprinkle(userOptions?: Options) {
     }, { type: "directive" })
 
     site.helper("is", (el, state, expr) => {
-      const data = site.source.data.get("/")
-
-      if(!data) {
+      if(!state._comp) {
         log.fatal(`Component "${expr}" not found`)
         return
       }
 
       const names = expr.split(".")
-      let component = data as ProxyComponents
+      let component = state._comp as ProxyComponents
 
       while (names.length) {
         try {
