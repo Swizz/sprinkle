@@ -1,7 +1,7 @@
 {
   "imports": {
-    "lume/": "https://deno.land/x/lume@v3.1.4/",
-    "sprae/": "https://esm.sh/sprae@12.4.4/"
+    "lume/": "https://deno.land/x/lume@v3.2.1/",
+    "sprae": "https://esm.sh/sprae@v12"
   },
   "unstable": [
     "temporal"

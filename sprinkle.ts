@@ -1,5 +1,4 @@
-import { sprae, store } from "sprae/sprae.js"
-import { parse } from "sprae/core.js"
+import { sprae, store } from "sprae"
 import { stringToDocument, documentToString } from "lume/core/utils/dom.ts"
 import { merge } from "lume/core/utils/object.ts"
 import textLoader from "lume/core/loaders/text.ts"
@@ -114,21 +113,17 @@ export function sprinkle(userOptions?: Options) {
         }
       }
 
-      // TODO: Find a better solution in sprae core
-      const scope = ((state: unknown) => {
-         const scope = parse(el.getAttribute(options.options.prefix + 'scope'))(state)
-         el.removeAttribute(options.options.prefix + 'scope')
-         return scope
-      })(state)
-
       if (typeof component == "function") {
-        // FIXME: This is not good as it merge the scope in the global state
-        component = component(Object.assign(state, { content: el.innerHTML }, typeof scope === 'function' ? scope(state) : scope))
+        state.content = el.innerHTML
+        component = component(store(state))
       }
 
       // @ts-expect-error sprae.directive is not typed
       Promise.resolve(component).then(sprae.directive.html(el, state))
     }, { type: "directive" })
+
+    // @ts-expect-error sprae.directive is not typed
+    site.helper("has", sprae.directive.is, { type: "directive" })
   }
 }
 
