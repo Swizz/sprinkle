@@ -36,4 +36,6 @@ site.data("layout", "./_layout.html")
 
 site.add("script.js")
 
+site.add("style.css")
+
 export default site
