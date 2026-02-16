@@ -36,7 +36,7 @@ site.add("main.css")
 ```js
 /** ./_config.ts **/
 
-import site from "https://deno.land/x/sprinkle/sprinkle.ts"
+import site from "https://deno.land/x/sprinkle/sprinkle.ts";
 
 site.use(sprinkle({
   options: {
@@ -48,7 +48,7 @@ site.use(sprinkle({
 ## Layout
 
 ```html
-<!-- ./_layout.html --->
+<!-- ./_layout.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,24 +56,24 @@ site.use(sprinkle({
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body ::content></body>
+  <body ::slot></body>
 </html>
 ```
 
 ## Components
 
 ```html
-<!-- ./_components/article.html --->
+<!-- ./_components/article.html -->
 
-<article ::content></article>
+<article ::slot></article>
 
 <footer>Article written by <span ::text="author"></span></footer>
 ```
 
 ```html
-<!-- ./blog.html --->
+<!-- ./blog.html -->
 
-<template ::scope="{ author: 'me' }" ::is="article">
+<template ::scope="{ author: 'me' }" ::for="article">
   <p>My awesome blog content.</p>
 </template>
 ```

@@ -90,12 +90,15 @@ export function sprinkle(userOptions?: Options) {
       engine: new SprinkleEngine(sprae, options.includes),
     })
 
-    site.helper("content", (el, state) => {
+    site.helper("slot", (el, state) => {
       // @ts-expect-error sprae.directive is not typed
       sprae.directive.html(el, state)(() => state.content)
     }, { type: "directive" })
 
-    site.helper("is", (el, state, expr) => {
+    // @ts-expect-error sprae.directive is not typed
+    site.helper("content", sprae.directive.slot, { type: "directive" })
+
+    site.helper("for", (el, state, expr) => {
       if(!state._comp) {
         log.fatal(`Component "${expr}" not found`)
         return
@@ -123,7 +126,13 @@ export function sprinkle(userOptions?: Options) {
     }, { type: "directive" })
 
     // @ts-expect-error sprae.directive is not typed
-    site.helper("has", sprae.directive.is, { type: "directive" })
+    site.helper("is", sprae.directive.for, { type: "directive" })
+
+    // @ts-expect-error sprae.directive is not typed
+    site.helper("has", sprae.directive.for, { type: "directive" })
+
+    // @ts-expect-error sprae.directive is not typed
+    site.helper("comp", sprae.directive.for, { type: "directive" })
   }
 }
 

@@ -71,18 +71,26 @@ outside the `_includes` directory.
 ## Components
 
 [Lume's components](../docs/core/components.md) are accessible through the
-directive `is`.
+directive `comp`.
 
 ```html
-<template ::is="button"></template>
+<template ::comp="button"></template>
 ```
 
 ### other directives
 
-The `has` directive is an alias to `is`, it exists only to preseve semantic:
+The `slot` directive is an alias to `content`, it exists only to preseve
+semantic:
 
 ```html
-<div ::has="button"></div>
+<body ::slot></body>
+```
+
+The `is`/`has`/`for` directive is an alias to `comp`, they exists only to
+preseve semantics:
+
+```html
+<div ::for="button"></div>
 ```
 
 For additional properties components can be scoped using the `scope` directive:
