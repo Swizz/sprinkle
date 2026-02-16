@@ -1,4 +1,4 @@
-# Sprinkle([Lume](https://lume.land/) + [Spræ](https://dy.github.io/sprae)) [![deno.land/x/sprinkle](https://shield.deno.dev/x/sprinkle)](https://deno.land/x/sprinkle)
+# [Sprinkle](https://github.com/swizz/sprinkle)([Lume](https://lume.land/) + [Spræ](https://dy.github.io/sprae)) [![deno.land/x/sprinkle](https://shield.deno.dev/x/sprinkle)](https://deno.land/x/sprinkle)
 
 Full featured Spræ engine for Lume.
 
