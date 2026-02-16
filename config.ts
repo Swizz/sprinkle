@@ -24,11 +24,7 @@ site.use(inline())
 
 site.use(lightning())
 
-site.use(purge({
-  options: {
-    variables: true,
-  },
-}))
+site.use(purge())
 
 site.use(minify({
   options: {
