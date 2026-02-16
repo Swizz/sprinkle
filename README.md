@@ -23,6 +23,7 @@ _see [config.ts](./config.ts) to read through the default configurations used._
 
 ```js
 /** ./_config.ts **/
+
 import site from "https://deno.land/x/sprinkle/config.ts"
 
 site.add("main.js")
@@ -63,6 +64,7 @@ site.use(sprinkle({
 
 ```html
 <!-- ./_components/article.html --->
+
 <article ::content></article>
 
 <footer>Article written by <span ::text="author"></span></footer>
