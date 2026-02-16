@@ -2,6 +2,12 @@
 
 Full featured Spræ engine for Lume.
 
+## Usage
+
+```sh
+deno task lume --config=https://deno.land/x/sprinkle/config.ts
+```
+
 | Included plugins |                                                            |
 | ---------------- | ---------------------------------------------------------- |
 | Sprinkle         | Full featured Spræ engine for Lume.                        |
@@ -12,12 +18,6 @@ Full featured Spræ engine for Lume.
 | Minify HTML      | Minify the HTML code of your pages.                        |
 
 _see [config.ts](./config.ts) to read through the default configurations used._
-
-## Usage
-
-```sh
-deno task lume --config=https://deno.land/x/sprinkle/config.ts
-```
 
 ### From configuration
 
@@ -35,7 +35,7 @@ site.add("main.css")
 ```js
 /** ./_config.ts **/
 
-import site from "https://deno.land/x/sprinkle/sprinkle.ts";
+import site from "https://deno.land/x/sprinkle/sprinkle.ts"
 
 site.use(sprinkle({
   options: {
