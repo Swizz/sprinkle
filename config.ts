@@ -10,7 +10,11 @@ const site = lume({
   dest: "./dist",
 })
 
-site.use(sprinkle())
+site.use(sprinkle({
+  options: {
+    prefix: "::",
+  },
+}))
 
 site.use(esbuild({
   denoConfig: "./deno.json",
@@ -22,14 +26,14 @@ site.use(lightning())
 
 site.use(purge({
   options: {
-    variables: true
-  }
+    variables: true,
+  },
 }))
 
 site.use(minify({
   options: {
     minify_js: true,
-  }
+  },
 }))
 
 site.data("layout", "./_layout.html")
