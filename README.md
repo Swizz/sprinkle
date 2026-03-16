@@ -13,8 +13,6 @@ deno task lume --config=https://deno.land/x/sprinkle/config.ts
 | Sprinkle         | Full featured Spræ engine for Lume.                        |
 | ESbuild          | Bundle JavaScript, TypeStript files using esbuild library. |
 | Inline           | Inline CSS, JavaScript, SVG and images in the HTML.        |
-| Lightning CSS    | Transform and minify your CSS files with Lightning CSS.    |
-| Purge CSS        | Use PuregeCSS to remove unused CSS code.                   |
 | Minify HTML      | Minify the HTML code of your pages.                        |
 
 _see [config.ts](./config.ts) to read through the default configurations used._
@@ -36,7 +34,7 @@ site.add("main.css")
 ```js
 /** ./_config.ts **/
 
-import site from "https://deno.land/x/sprinkle/sprinkle.ts";
+import site from "https://deno.land/x/sprinkle/sprinkle.ts"
 
 site.use(sprinkle({
   options: {

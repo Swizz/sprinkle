@@ -2,8 +2,6 @@ import lume from "lume/mod.ts"
 import sprinkle from "./sprinkle.ts"
 import esbuild from "lume/plugins/esbuild.ts"
 import inline from "lume/plugins/inline.ts"
-import lightning from "lume/plugins/lightningcss.ts"
-import purge from "lume/plugins/purgecss.ts"
 import minify from "lume/plugins/minify_html.ts"
 
 const site = lume({
@@ -21,14 +19,6 @@ site.use(esbuild({
 }))
 
 site.use(inline())
-
-site.use(lightning())
-
-site.use(purge({
-  options: {
-    variables: true,
-  },
-}))
 
 site.use(minify({
   options: {
